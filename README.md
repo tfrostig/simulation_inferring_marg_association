@@ -10,7 +10,10 @@ Tested R version 4.0.4
 
  # Run Code 
  - Open Project 
- - Update parameters (number of iterations and cores) and run `run_simulations.R`
+ - Open the `run_simulations.R` script. Update the parameters:  There are three parameters: `n_iter` - number of iterations used in the simulation (default 50),
+ `n_cores` - number of cores used in parallel (default 10) and `parallel` - Boolean flag whether to use parallelization at all. 
+ - Run `run_simulations.R`
+ - The results will be saved in the `RESULTS_DIR` directory, which is defined in `run_simulations.
  - Update the relevant `RESULTS_DIR` directory in `generate_plots.R`
    
 

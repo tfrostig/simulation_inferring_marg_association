@@ -65,4 +65,4 @@ message("Checking and installing required GitHub packages...")
 install_github_if_missing(github_packages, github_urls)
 
 message("All dependencies installed successfully!")
-message("Run 'main.R' to execute the simulations and generate plots.")
+message("Run 'run_simuilation.R' to execute the simulations and generate plots.")

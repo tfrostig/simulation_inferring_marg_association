@@ -11,7 +11,7 @@ output_dir = paste0("output/results", Sys.Date())
 
 # create directory
 if (!dir.exists(output_dir)) {
-  dir.create(output_dir)
+  dir.create(output_dir, recursive = TRUE)
 }
 
 # Set seed for reproducibility
