@@ -4,7 +4,7 @@ source('simulation/normal_dist_sim.R')
 source('simulation/genetic_w_selection_sim.R')
 
 ## Parameters
-n_iter = 50
+n_iter = 20
 n_cores = 10
 parallel = TRUE
 output_dir = paste0("output/results", Sys.Date())
