@@ -1,4 +1,18 @@
+# R project user and history files
 .Rproj.user
 .Rhistory
 .RData
 .Ruserdata
+
+# Local environment files
+.Rprofile
+.Renviron
+
+# renv: commit lockfile, ignore local library
+renv/library/
+renv/staging/
+
+# OS-specific files
+.DS_Store
+
+output/

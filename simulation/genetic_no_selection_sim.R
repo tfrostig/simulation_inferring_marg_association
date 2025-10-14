@@ -126,7 +126,8 @@ simGeneticStandard <- function(eff.dim, n.org, n.ref, h, qu, cov.mat, maf.vec) {
 runGeneticStandardSim <- function(output_dir = ".",
                                   n_iter = 1000,
                                   parallel = TRUE,
-                                  n_cores = 8) {
+                                  n_cores = 8,
+                                  seed = 9) {
   # Define parameters
   para.df <- expand.grid(
     'n.org' = c(10000),
@@ -142,6 +143,7 @@ runGeneticStandardSim <- function(output_dir = ".",
     mutate(cas.snp = sapply(para.df$eff.dim, length))
 
   # Generate MAF vectors
+  set.seed(seed)
   maf.vec.1 <- rbeta(max(para.df$p), 1, 2) / 2
   maf.vec.1 <- pmax(maf.vec.1, 0.05)  # Ensure no nulls
   maf.vec.2 <- runif(max(para.df$p), 0.05, 0.5)
@@ -176,7 +178,7 @@ runGeneticStandardSim <- function(output_dir = ".",
         i = 1:n_iter,
         .packages = pack.names,
         .export = c("simGeneticStandard", "createGene", "testCoef", "summarisePval", "corr2", "calcFDR", "calcPower"),
-        .options.RNG = 9,
+        .options.RNG = seed,
         .combine = rbind
       ) %dorng% {
         simGeneticStandard(

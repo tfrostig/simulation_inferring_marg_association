@@ -124,7 +124,8 @@ simNormal <- function(eff.dim, n.org, n.ref, h, qu, cov.mat) {
 runNormalSim <- function(output_dir = ".",
                          n_iter = 1000,
                          parallel = TRUE,
-                         n_cores = 8) {
+                         n_cores = 8,
+                         seed = 9) {
   # Define parameters
   para.df <- expand.grid(
     'n.org' = c(10000, 20000, 50000, 100000, 200000),
@@ -159,7 +160,7 @@ runNormalSim <- function(output_dir = ".",
       temp.result <- foreach(
         i = 1:n_iter,
         .packages = pack.names,
-        .options.RNG = 9,
+        .options.RNG = seed,
         .export = c("simNormal", "testCoef", "summarisePval", "corr2", "calcFDR", "calcPower"),
         .combine = rbind
       ) %dorng% {
