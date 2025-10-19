@@ -7,9 +7,10 @@ compare_directories <- function(dir1, dir2, extension = "csv") {
   files1 <- list.files(dir1, pattern = pattern, recursive = TRUE, full.names = TRUE)
   files2 <- list.files(dir2, pattern = pattern, recursive = TRUE, full.names = TRUE)
 
-  # Get relative paths to compare structure
-  rel1 <- gsub(paste0("^", dir1, "/?"), "", files1)
-  rel2 <- gsub(paste0("^", dir2, "/?"), "", files2)
+  # Use relative paths with file.path-safe separator
+  rel1 <- substring(files1, nchar(dir1) + 2)  # +2 to skip separator
+  rel2 <- substring(files2, nchar(dir2) + 2)
+
   common_files <- intersect(rel1, rel2)
 
   results <- data.frame(
@@ -19,14 +20,13 @@ compare_directories <- function(dir1, dir2, extension = "csv") {
   )
 
   for (i in seq_along(common_files)) {
+    cat("Comparing:", common_files[i], "\n")
     f1 <- file.path(dir1, common_files[i])
     f2 <- file.path(dir2, common_files[i])
 
-    # Try to read both files safely
     df1 <- tryCatch(read.csv(f1, stringsAsFactors = FALSE), error = function(e) NULL)
     df2 <- tryCatch(read.csv(f2, stringsAsFactors = FALSE), error = function(e) NULL)
 
-    # Compare data frames (semantic equality)
     results$identical[i] <- identical(df1, df2)
   }
 
@@ -34,10 +34,5 @@ compare_directories <- function(dir1, dir2, extension = "csv") {
   return(results)
 }
 
-# Example usage
-compare_directories("output/results2025-10-05", "output/results2025-10-05_v1")
-compare_directories("output/results2025-10-14", "output/results2025-10-05_v1")
-
-# Example usage
-compare_directories("output/results2025-10-05", "output/results2025-10-05_v1")
-compare_directories("output/results2025-10-14", "output/results2025-10-05")
+# Example
+compare_directories("output/results2025-07-22", "output/results2025-07-19")
